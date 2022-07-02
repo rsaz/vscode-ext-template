@@ -50,6 +50,19 @@ export class Commands {
       panel.webview.html = utils.getWebviewHTML(
         panel.title, panel.webview.cspSource,webviewHtmlUri, mainjsUri, stylecssUri,vscodecssUri);
 
+      
+      // Handling Webview and Extension communication (main.js)
+      panel.webview.onDidReceiveMessage(
+        async (message) => {
+          switch (message.command) {
+            case "createProject": 
+            console.log(`Base command: ${message.content}`);
+            //await this.createProject(message.cardSelection, message.packageManager);
+            return;
+          }
+        }
+      );
+
       /* Called on panel dispose */
       panel.onDidDispose(
         ()=> {
